@@ -1,0 +1,8 @@
+[submodule "jetstack-cert-manager"]
+	path = cert-manager
+	url = https://github.com/openshift/jetstack-cert-manager.git
+	branch = release-1.15
+[submodule "cert-manager-operator"]
+	path = cert-manager-operator
+	url = https://github.com/openshift/cert-manager-operator.git
+	branch = cert-manager-1.15
