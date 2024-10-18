@@ -41,7 +41,7 @@ spec:
       - linux/arm64
   - name: build-args
     value:
-      - "RELEASE_VERSION={{target_branch}}"
+      - "RELEASE_VERSION=v1.15.0"
       - "COMMIT_SHA={{revision}}"
       - "SOURCE_URL={{source_url}}"
   pipelineSpec:
