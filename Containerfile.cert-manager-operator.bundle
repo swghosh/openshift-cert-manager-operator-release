@@ -1,4 +1,4 @@
-FROM registry.redhat.io/ubi9/toolbox:9.4 AS builder
+FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:rhel_9_golang_1.22 AS builder
 
 COPY cert-manager-operator/bundle/manifests /manifests
 COPY cert-manager-operator/bundle/metadata /metadata
@@ -15,7 +15,13 @@ ARG CERT_MANAGER_OPERATOR_IMAGE=registry.redhat.io/cert-manager/cert-manager-ope
     CERT_MANAGER_ACMESOLVER_IMAGE=registry.redhat.io/cert-manager/jetstack-cert-manager-acmesolver-rhel9@sha256:9f185dca969322dae0806b3f201fb2fdb43924a70eaa16e2d543355da0b4efbe \
     KUBE_RBAC_PROXY_IMAGE=registry.redhat.io/openshift4/ose-kube-rbac-proxy-rhel9@sha256:6fbeaf03058bb5d6e9e3311a7afe67666e0770532c978b6b57e77ea2851cb085
 
-RUN wget -q https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && chmod +x /usr/bin/yq
+ENV GO_BUILD_TAGS=strictfipsruntime,openssl
+ENV GOEXPERIMENT=strictfipsruntime
+ENV CGO_ENABLED=1
+ENV GOFLAGS=""
+
+COPY tools.go go.mod go.sum /
+RUN go build -o /usr/bin/yq github.com/mikefarah/yq/v4 && chmod +x /usr/bin/yq
 RUN ./render_templates.sh /manifests /metadata \
     "${CERT_MANAGER_OPERATOR_IMAGE}" \
     "${CERT_MANAGER_WEBHOOK_IMAGE}" \
