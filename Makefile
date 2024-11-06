@@ -1,8 +1,19 @@
+## local variables.
+cert_manager_submodule_dir = cert-manager
+cert_manager_operator_submodule_dir = cert-manager-operator
+cert_manager_containerfile_name = Containerfile.cert-manager
+cert_manager_acmesolver_containerfile_name = Containerfile.cert-manager.acmesolver
+cert_manager_operator_containerfile_name = Containerfile.cert-manager-operator
+cert_manager_operator_bundle_containerfile_name = Containerfile.cert-manager-operator.bundle
+commit_sha = $(strip $(shell git rev-parse HEAD))
+source_url = $(strip $(shell git remote get-url origin))
+release_version = v$(strip $(shell git branch --show-current | cut -d'-' -f2))
+
 ## cert-manager-operator-release and cert-manager follow same naming for release
 ## branches except for cert-manager-operator which has release version as suffix in
 ## the branch name like in aforementioned repositories, which will be used for
 ## deriving the submodules branch.
-PARENT_BRANCH_SUFFIX ?= $(strip $(shell git branch --show-current | cut -d'-' -f2))
+PARENT_BRANCH_SUFFIX = $(strip $(shell git branch --show-current | cut -d'-' -f2))
 
 ## current branch name of the cert-manager submodule.
 CERT_MANAGER_BRANCH ?= release-$(PARENT_BRANCH_SUFFIX)
@@ -20,29 +31,35 @@ ifeq ($(PARENT_BRANCH_SUFFIX), main)
 CERT_MANAGER_OPERATOR_BRANCH = master
 endif
 
-## default container build tool to use for creating images.
-CONTAINER_ENGINE ?= docker
+## container build tool to use for creating images.
+CONTAINER_ENGINE ?= podman
 
-## default image name for cert-manager-operator.
+## image name for cert-manager-operator.
 CERT_MANAGER_OPERATOR_IMAGE ?= cert-manager-operator
 
-## default image name for cert-manager-operator-bundle.
+## image name for cert-manager-operator-bundle.
 CERT_MANAGER_OPERATOR_BUNDLE_IMAGE ?= cert-manager-operator-bundle
 
-## default image name for cert-manager.
+## image name for cert-manager.
 CERT_MANAGER_IMAGE ?= cert-manager
 
-## default image name for cert-manager-acmesolver.
+## image name for cert-manager-acmesolver.
 CERT_MANAGER_ACMESOLVER_IMAGE ?= cert-manager-acmesolver
 
-## default image version to tag the created images.
-IMAGE_VERSION ?= release-$(PARENT_BRANCH_SUFFIX)
+## image version to tag the created images with.
+IMAGE_VERSION ?= $(release_version)
 
-## default image tag makes use of the branch name and
+## image tag makes use of the branch name and
 ## when branch name is `main` use `latest` as the tag.
 ifeq ($(PARENT_BRANCH_SUFFIX), main)
 IMAGE_VERSION = latest
 endif
+
+## args to pass during image build
+IMAGE_BUILD_ARGS ?= --build-arg RELEASE_VERSION=$(release_version) --build-arg COMMIT_SHA=$(commit_sha) --build-arg SOURCE_URL=$(source_url)
+
+## tailored command to build images.
+IMAGE_BUILD_CMD = $(CONTAINER_ENGINE) build $(IMAGE_BUILD_ARGS)
 
 .DEFAULT_GOAL := help
 ## usage summary.
@@ -59,7 +76,7 @@ help:
 	@ echo ''
 	@ echo '  Flags:'
 	@ echo ''
-	@ awk '/^#/{ comment = substr($$0,3) } comment && /^[a-zA-Z][a-zA-Z0-9_-]+ ?\?=/{ print "   ", $$1, $$2, comment }' $(MAKEFILE_LIST) | column -t -s '?=' | sort | egrep -v "PARENT_BRANCH_SUFFIX"
+	@ awk '/^#/{ comment = substr($$0,3) } comment && /^[a-zA-Z][a-zA-Z0-9_-]+ ?\?=/{ print "   ", $$1, $$2, comment }' $(MAKEFILE_LIST) | column -t -s '?=' | sort
 	@ echo ''
 
 ## execute all required targets.
@@ -69,14 +86,16 @@ all: verify
 ## checkout submodules branch to match the parent branch.
 .PHONY: switch-submodules-branch
 switch-submodules-branch:
-	cd cert-manager; git checkout $(CERT_MANAGER_BRANCH); cd - > /dev/null
-	cd cert-manager-operator; git checkout $(CERT_MANAGER_OPERATOR_BRANCH); cd - > /dev/null
+	cd $(cert_manager_submodule_dir); git checkout $(CERT_MANAGER_BRANCH); cd - > /dev/null
+	cd $(cert_manager_operator_submodule_dir); git checkout $(CERT_MANAGER_OPERATOR_BRANCH); cd - > /dev/null
+	# update with local cache.
+	git submodule update
 
 ## update submodules revision to match the revision of the origin repository.
 .PHONY: update-submodules
 update-submodules:
-	git submodule update --remote cert-manager
-	git submodule update --remote cert-manager-operator
+	git submodule update --remote $(cert_manager_submodule_dir)
+	git submodule update --remote $(cert_manager_operator_submodule_dir)
 
 ## build all the images - operator, operand and operator-bundle.
 .PHONY: build-images
@@ -85,32 +104,42 @@ build-images: build-operand-images build-operator-image build-bundle-image
 ## build operator image.
 .PHONY: build-operator-image
 build-operator-image:
-	$(CONTAINER_ENGINE) build -f Containerfile.cert-manager-operator -t $(CERT_MANAGER_OPERATOR_IMAGE):$(IMAGE_VERSION) .
+	$(IMAGE_BUILD_CMD) -f $(cert_manager_operator_containerfile_name) -t $(CERT_MANAGER_OPERATOR_IMAGE):$(IMAGE_VERSION) .
 
 ## build all operand images
 .PHONY: build-operand-images
 build-operand-images:
-	$(CONTAINER_ENGINE) build -f Containerfile.cert-manager -t $(CERT_MANAGER_IMAGE):$(IMAGE_VERSION) .
-	$(CONTAINER_ENGINE) build -f Containerfile.cert-manager.acmesolver -t $(CERT_MANAGER_ACMESOLVER_IMAGE):$(IMAGE_VERSION) .
+	$(IMAGE_BUILD_CMD) -f $(cert_manager_containerfile_name) -t $(CERT_MANAGER_IMAGE):$(IMAGE_VERSION) .
+	$(IMAGE_BUILD_CMD) -f $(cert_manager_acmesolver_containerfile_name) -t $(CERT_MANAGER_ACMESOLVER_IMAGE):$(IMAGE_VERSION) .
 
 ## build operator bundle image.
 .PHONY: build-bundle-image
 build-bundle-image:
-	$(CONTAINER_ENGINE) build -f Containerfile.cert-manager-operator.bundle -t $(CERT_MANAGER_OPERATOR_BUNDLE_IMAGE):$(IMAGE_VERSION) .
+	$(IMAGE_BUILD_CMD) -f $(cert_manager_operator_bundle_containerfile_name) -t $(CERT_MANAGER_OPERATOR_BUNDLE_IMAGE):$(IMAGE_VERSION) .
 
 ## build operand cert-manager image.
 .PHONY: build-cert-manager-image
 build-cert-manager-image:
-	$(CONTAINER_ENGINE) build -f Containerfile.cert-manager -t $(CERT_MANAGER_IMAGE):$(IMAGE_VERSION) .
+	$(IMAGE_BUILD_CMD) -f $(cert_manager_containerfile_name) -t $(CERT_MANAGER_IMAGE):$(IMAGE_VERSION) .
 
 ## build operand cert-manager-acmesolver image.
 .PHONY: build-cert-manager-acmesolver-image
 build-cert-manager-acmesolver-image:
-	$(CONTAINER_ENGINE) build -f Containerfile.cert-manager.acmesolver -t $(CERT_MANAGER_ACMESOLVER_IMAGE):$(IMAGE_VERSION) .
+	$(IMAGE_BUILD_CMD) -f $(cert_manager_acmesolver_containerfile_name) -t $(CERT_MANAGER_ACMESOLVER_IMAGE):$(IMAGE_VERSION) .
+
+## check shell scripts.
+.PHONY: verify-shell-scripts
+verify-shell-scripts:
+	./hack/shell-scripts-linter.sh
+
+## check containerfiles.
+.PHONY: verify-containerfiles
+verify-containerfiles:
+	./hack/containerfile-linter.sh
 
 ## verify the changes are working as expected.
 .PHONY: verify
-verify: build-images
+verify: verify-shell-scripts verify-containerfiles build-images
 
 ## update all required contents.
 .PHONY: update
