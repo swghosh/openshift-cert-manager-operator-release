@@ -4,5 +4,5 @@
 	branch = release-1.15
 [submodule "cert-manager-operator"]
 	path = cert-manager-operator
-	url = https://github.com/openshift/cert-manager-operator.git
-	branch = cert-manager-1.15
+	url = https://github.com/arkadeepsen/cert-manager-operator.git
+	branch = scheduling
