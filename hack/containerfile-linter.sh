@@ -2,7 +2,7 @@
 
 declare -a CONTAINERFILES
 
-CERT_MANAGER_OPERATOR_CONTAINERFILES=("Containerfile.cert-manager" "Containerfile.cert-manager.acmesolver" "Containerfile.cert-manager-operator" "Containerfile.cert-manager-operator.bundle")
+CERT_MANAGER_OPERATOR_CONTAINERFILES=("Containerfile.cert-manager" "Containerfile.cert-manager.acmesolver" "Containerfile.cert-manager-operator" "Containerfile.cert-manager-operator.bundle" "Containerfile.catalog")
 
 linter()
 {
@@ -33,7 +33,7 @@ containerfile_linter()
 ###############  MAIN  #######################
 ##############################################
 
-if [[ $# -gt 1 ]]; then
+if [[ $# -ge 1 ]]; then
 	CONTAINERFILES=("$@")
 	echo "[$(date)] -- INFO  -- running linter on $*"
 fi
