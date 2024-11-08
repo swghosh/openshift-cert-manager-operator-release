@@ -1,0 +1,18 @@
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+jobs:
+  lint-containerfiles:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Lint Dockerfile
+        uses: hadolint/hadolint-action@master
+        with:
+          entrypoint: bash
+          dockerfile: "./hack/containerfile-linter.sh"
