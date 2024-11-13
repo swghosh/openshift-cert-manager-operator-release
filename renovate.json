@@ -1,5 +1,4 @@
 {
-	"_comment": "Refer https://docs.renovatebot.com/configuration-options/ more details",
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
 	"extends": [
 		"https://github.com/konflux-ci/mintmaker/blob/main/config/renovate/renovate.json?raw=true"
@@ -12,7 +11,6 @@
 		"automergeType": "pr-comment",
 		"enabled": true,
 		"ignoreTests": false,
-		"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
 		"platformAutomerge": true
 	}
 }
