@@ -73,6 +73,12 @@ OPM_DOWNLOAD_URL = https://github.com/operator-framework/operator-registry/relea
 ## Operator Package Manager tool path.
 OPM_TOOL_PATH ?= $(TOOL_BIN_DIR)/opm
 
+## Operator bundle image to use for generating catalog.
+OPERATOR_BUNDLE_IMAGE ?=
+
+## Catalog directory where generated catalog will be stored. Directory must have sub-directory with package `openshift-cert-manager-operator` name.
+CATALOG_DIR ?=
+
 .DEFAULT_GOAL := help
 ## usage summary.
 .PHONY: help
@@ -143,6 +149,25 @@ build-cert-manager-acmesolver-image:
 .PHONY: build-catalog-image
 build-catalog-image:
 	$(CONTAINER_ENGINE) build -f Containerfile.catalog -t $(CATALOG_IMAGE):$(IMAGE_VERSION) .
+
+## update catalog using the provided bundle image.
+.PHONY: update-catalog
+update-catalog: get-opm
+
+## validate required parameters are set.
+ifndef OPERATOR_BUNDLE_IMAGE
+$(error OPERATOR_BUNDLE_IMAGE parameter must be set for update-catalog target)
+endif
+ifndef CATALOG_DIR
+$(error CATALOG_DIR parameter must be set for update-catalog target)
+endif
+
+	$(OPM_TOOL_PATH) render $(OPERATOR_BUNDLE_IMAGE) -o yaml > $(CATALOG_DIR)/openshift-cert-manager-operator/bundle.yaml
+	$(OPM_TOOL_PATH) validate $(CATALOG_DIR)
+
+## update catalog and build catalog image.
+.PHONY: catalog
+catalog: get-opm update-catalog build-catalog-image
 
 ## check shell scripts.
 .PHONY: verify-shell-scripts

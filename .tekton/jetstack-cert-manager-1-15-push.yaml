@@ -3,11 +3,14 @@ kind: PipelineRun
 metadata:
   annotations:
     build.appstudio.openshift.io/repo: https://github.com/openshift/cert-manager-operator-release?rev={{revision}}
+    build.appstudio.openshift.io/pipeline: '{"name":"docker-build-multi-platform-oci-ta","bundle":"latest"}'
+    build.appstudio.openshift.io/request: "configure-pac"
     build.appstudio.redhat.com/commit_sha: '{{revision}}'
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/max-keep-runs: "3"
-    pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
-      == "release-1.15"
+    pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch == "release-1.15" &&
+      (".tekton/jetstack-cert-manager-1-15-push.yaml".pathChanged() ||
+      "Containerfile.cert-manager".pathChanged() || "cert-manager/***".pathChanged())
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: jetstack-cert-manager-1-15
@@ -23,13 +26,23 @@ spec:
     value: '{{revision}}'
   - name: output-image
     value: quay.io/redhat-user-workloads/cert-manager-oape-tenant/jetstack-cert-manager-1-15/jetstack-cert-manager-1-15:{{revision}}
-  - name: build-platforms
-    value:
-    - linux/x86_64
   - name: dockerfile
     value: Containerfile.cert-manager
   - name: path-context
     value: .
+  - name: build-platforms
+    value:
+    - linux/x86_64
+    - linux/s390x
+    - linux/ppc64le
+    - linux/arm64
+  - name: build-args
+    value:
+    - "RELEASE_VERSION=v1.15.2"
+    - "COMMIT_SHA={{revision}}"
+    - "SOURCE_URL={{source_url}}"
+  - name: prefetch-input
+    value: '{"type": "gomod", "path": "cert-manager"}'
   pipelineSpec:
     description: |
       This pipeline is ideal for building multi-arch container images from a Containerfile while maintaining trust after pipeline customization.
@@ -79,7 +92,7 @@ spec:
       description: Skip checks against built image
       name: skip-checks
       type: string
-    - default: "false"
+    - default: "true"
       description: Execute the build with network isolation
       name: hermetic
       type: string
@@ -91,7 +104,7 @@ spec:
       description: Image tag expiration time, time values could be something like
         1h, 2d, 3w for hours, days, and weeks, respectively.
       name: image-expires-after
-    - default: "false"
+    - default: "true"
       description: Build a source image.
       name: build-source-image
       type: string
@@ -108,7 +121,7 @@ spec:
       name: build-args-file
       type: string
     - default:
-      - linux/x86_64
+      - $(params.build-platforms)
       description: List of platforms to build the container images on. The available
         set of values is determined by the configuration of the multi-platform-controller.
       name: build-platforms
