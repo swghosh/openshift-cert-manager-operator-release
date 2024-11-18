@@ -153,16 +153,13 @@ build-catalog-image:
 ## update catalog using the provided bundle image.
 .PHONY: update-catalog
 update-catalog: get-opm
+# validate required parameters are set.
+	@(if [ -z $(OPERATOR_BUNDLE_IMAGE) ] || [ -z $(CATALOG_DIR) ]; then echo "\n-- ERROR -- OPERATOR_BUNDLE_IMAGE and CATALOG_DIR parameters must be set for update-catalog target\n"; exit 1; fi)
+	@(if [ ! -f $(CATALOG_DIR)/openshift-cert-manager-operator/bundle.yaml ]; then echo "\n-- ERROR -- $(CATALOG_DIR)/openshift-cert-manager-operator/bundle.yaml does not exist\n"; exit 1; fi)
 
-## validate required parameters are set.
-ifndef OPERATOR_BUNDLE_IMAGE
-$(error OPERATOR_BUNDLE_IMAGE parameter must be set for update-catalog target)
-endif
-ifndef CATALOG_DIR
-$(error CATALOG_DIR parameter must be set for update-catalog target)
-endif
-
-	$(OPM_TOOL_PATH) render $(OPERATOR_BUNDLE_IMAGE) -o yaml > $(CATALOG_DIR)/openshift-cert-manager-operator/bundle.yaml
+# --migrate-level=bundle-object-to-csv-metadata is used for creating bundle metadata in `olm.csv.metadata` format.
+# Refer https://github.com/konflux-ci/build-definitions/blob/main/task/fbc-validation/0.1/TROUBLESHOOTING.md for details.
+	$(OPM_TOOL_PATH) render $(OPERATOR_BUNDLE_IMAGE) --migrate-level=bundle-object-to-csv-metadata -o yaml > $(CATALOG_DIR)/openshift-cert-manager-operator/bundle.yaml
 	$(OPM_TOOL_PATH) validate $(CATALOG_DIR)
 
 ## update catalog and build catalog image.
