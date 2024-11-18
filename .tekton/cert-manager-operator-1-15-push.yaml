@@ -10,7 +10,7 @@ metadata:
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch == "release-1.15" &&
       (".tekton/cert-manager-operator-1-15-push.yaml".pathChanged() || "Containerfile.cert-manager-operator".pathChanged() ||
-      "cert-manager-operator/\*\*\*".pathChanged())
+      "cert-manager-operator/***".pathChanged())
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: cert-manager-operator-1-15
