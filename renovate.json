@@ -5,12 +5,23 @@
 	],
 	"tekton": {
 		"assigneesFromCodeOwners": true,
-		"automerge": true,
-		"automergeComment": "PR configured to be auto-merged by renovate-bot",
-		"automergeStrategy": "rebase",
-		"automergeType": "pr-comment",
+		"automergeStrategy": "auto",
+		"automergeType": "pr",
+		"commitMessagePrefix": "NO-JIRA: ",
 		"enabled": true,
 		"ignoreTests": false,
-		"platformAutomerge": true
+		"packageRules": [
+			{
+				"matchUpdateTypes": [
+					"minor", 
+					"patch", 
+					"pin", 
+					"digest"
+				],
+				"automerge": true
+			}
+		],
+		"rebaseLabel": "rebase",
+		"rebaseWhen": "auto"
 	}
 }
