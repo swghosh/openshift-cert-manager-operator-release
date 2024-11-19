@@ -21,7 +21,7 @@
 				"automerge": true
 			}
 		],
-		"rebaseLabel": "rebase",
+		"rebaseLabel": "needs-rebase",
 		"rebaseWhen": "auto"
 	}
 }
