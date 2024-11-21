@@ -253,7 +253,7 @@ properties:
       capabilities: Seamless Upgrades
       categories: Security
       console.openshift.io/disable-operand-delete: "true"
-      containerImage: registry.redhat.io/cert-manager/cert-manager-operator-rhel9@sha256:bbf2fbcaa5751108a6babc0a74c509d35324994f7414f9293b9d8e6773404007
+      containerImage: registry.redhat.io/cert-manager/cert-manager-operator-rhel9@sha256:7eb9a0f2116738816cc2c86ad212bfed09cb2648580760a15c513297bd403cce
       createdAt: 2024-11-13T09:01:46
       features.operators.openshift.io/cnf: "false"
       features.operators.openshift.io/cni: "false"
