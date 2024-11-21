@@ -3,13 +3,16 @@
 	"extends": [
 		"https://github.com/konflux-ci/mintmaker/blob/main/config/renovate/renovate.json?raw=true"
 	],
+	"assigneesFromCodeOwners": true,
+	"automergeStrategy": "auto",
+	"automergeType": "pr",
+	"commitMessagePrefix": "NO-JIRA: ",
+	"ignoreTests": false,
+	"rebaseLabel": "needs-rebase",
+	"rebaseWhen": "behind-base-branch",
+	"recreateWhen": "always",
 	"tekton": {
-		"assigneesFromCodeOwners": true,
-		"automergeStrategy": "auto",
-		"automergeType": "pr",
-		"commitMessagePrefix": "NO-JIRA: ",
 		"enabled": true,
-		"ignoreTests": false,
 		"packageRules": [
 			{
 				"matchUpdateTypes": [
@@ -20,8 +23,18 @@
 				],
 				"automerge": true
 			}
-		],
-		"rebaseLabel": "needs-rebase",
-		"rebaseWhen": "auto"
+		]
+	},
+	"dockerfile": {
+		"enabled": true,
+		"packageRules": [
+			{
+				"matchFileNames": ["Containerfile.*"],
+				"automerge": true
+			}
+		]
+	},
+	"git-submodules": {
+		"enabled": false
 	}
 }

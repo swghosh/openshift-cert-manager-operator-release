@@ -178,7 +178,7 @@ verify-containerfiles:
 
 ## verify the changes are working as expected.
 .PHONY: verify
-verify: verify-shell-scripts verify-containerfiles build-images
+verify: verify-shell-scripts verify-containerfiles validate-renovate-config build-images
 
 ## update all required contents.
 .PHONY: update
@@ -208,3 +208,9 @@ $(CERT_MANAGER_OPERATOR_BUNDLE_IMAGE):$(IMAGE_VERSION) \
 $(CATALOG_IMAGE):$(IMAGE_VERSION)
 
 	rm -r $(TOOL_BIN_DIR)
+
+## validate renovate config.
+.PHONY: validate-renovate-config
+validate-renovate-config:
+	./hack/renovate-config-validator.sh
+
