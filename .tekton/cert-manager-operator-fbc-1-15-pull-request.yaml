@@ -199,7 +199,7 @@ spec:
         - name: PLATFORM
           value:
           - $(params.build-platforms)
-      name: build-container
+      name: build-images
       params:
       - name: IMAGE
         value: $(params.output-image)
@@ -244,9 +244,9 @@ spec:
         value: $(params.build-image-index)
       - name: IMAGES
         value:
-        - $(tasks.build-container.results.IMAGE_URL)@$(tasks.build-container.results.IMAGE_DIGEST)
+        - $(tasks.build-images.results.IMAGE_REF[*])
       runAfter:
-      - build-container
+      - build-images
       taskRef:
         params:
         - name: name

@@ -13,7 +13,7 @@ ARG CERT_MANAGER_OPERATOR_IMAGE=registry.redhat.io/cert-manager/cert-manager-ope
     CERT_MANAGER_WEBHOOK_IMAGE=registry.redhat.io/cert-manager/jetstack-cert-manager-rhel9@sha256:db40bfc8705ae82bbc38fbef95e0092891534dedd3ba903807399848decb94f5 \
     CERT_MANAGER_CA_INJECTOR_IMAGE=registry.redhat.io/cert-manager/jetstack-cert-manager-rhel9@sha256:db40bfc8705ae82bbc38fbef95e0092891534dedd3ba903807399848decb94f5 \
     CERT_MANAGER_CONTROLLER_IMAGE=registry.redhat.io/cert-manager/jetstack-cert-manager-rhel9@sha256:db40bfc8705ae82bbc38fbef95e0092891534dedd3ba903807399848decb94f5 \
-    CERT_MANAGER_ACMESOLVER_IMAGE=registry.redhat.io/cert-manager/jetstack-cert-manager-acmesolver-rhel9@sha256:6f8d7f4ce91305709b2fc04fbce44fba0090b179347f6c48feb70a847f3c2ae5 \
+    CERT_MANAGER_ACMESOLVER_IMAGE=registry.redhat.io/cert-manager/jetstack-cert-manager-acmesolver-rhel9@sha256:54a06ce6c31b6f3c1d7798e13e017e623ebfb5076d7810b7397be4ae59207427 \
     KUBE_RBAC_PROXY_IMAGE=registry.redhat.io/openshift4/ose-kube-rbac-proxy-rhel9@sha256:6fbeaf03058bb5d6e9e3311a7afe67666e0770532c978b6b57e77ea2851cb085
 
 ENV GO_BUILD_TAGS=strictfipsruntime,openssl
