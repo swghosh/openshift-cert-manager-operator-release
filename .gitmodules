@@ -9,3 +9,4 @@
 [submodule "istio-csr"]
 	path = istio-csr
 	url = https://github.com/openshift/cert-manager-istio-csr
+	branch = main

@@ -33,11 +33,12 @@ ifeq ($(PARENT_BRANCH_SUFFIX), main)
 CERT_MANAGER_OPERATOR_BRANCH = master
 endif
 
-ISTIO_PARENT_BRANCH = $(strip $(shell git branch --show-current))
+## current branch name of the istio-csr submodule.
+ISTIO_CSR_BRANCH ?= release-$(PARENT_BRANCH_SUFFIX)
 
-ISTIO_BRANCH_SUFFIX = $(if $(filter release-%, $(ISTIO_PARENT_BRANCH)),$(strip $(shell echo $(ISTIO_PARENT_BRANCH) | cut -d'-' -f2)),main)
-
-ISTIO_CSR_BRANCH ?= $(if $(filter release-%, $(ISTIO_PARENT_BRANCH)),release-$(ISTIO_BRANCH_SUFFIX),main)
+ifeq ($(PARENT_BRANCH_SUFFIX), main)
+ISTIO_CSR_BRANCH = main
+endif
 
 ## container build tool to use for creating images.
 CONTAINER_ENGINE ?= podman
@@ -121,10 +122,7 @@ build-operator-image:
 
 ## build all operand images
 .PHONY: build-operand-images
-build-operand-images:
-	$(IMAGE_BUILD_CMD) -f $(cert_manager_containerfile_name) -t $(CERT_MANAGER_IMAGE):$(IMAGE_VERSION) .
-	$(IMAGE_BUILD_CMD) -f $(cert_manager_acmesolver_containerfile_name) -t $(CERT_MANAGER_ACMESOLVER_IMAGE):$(IMAGE_VERSION) .
-	$(IMAGE_BUILD_CMD) -f $(istio_csr_containerfile_name) -t $(ISTIO_CSR_IMAGE):$(IMAGE_VERSION) .
+build-operand-images: build-cert-manager-image build-cert-manager-acmesolver-image build-istio-csr-image
 
 ## build operator bundle image.
 .PHONY: build-bundle-image
