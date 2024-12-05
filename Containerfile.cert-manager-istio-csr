@@ -1,8 +1,8 @@
 FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:rhel_9_golang_1.22 AS builder
 ARG SOURCE_DIR="/go/src/github.com/openshift/cert-manager-istio-csr"
 
-COPY istio-csr $SOURCE_DIR
-COPY istio-csr/LICENSE /licenses/
+COPY cert-manager-istio-csr $SOURCE_DIR
+COPY cert-manager-istio-csr/LICENSE /licenses/
 
 ENV GO_BUILD_TAGS=strictfipsruntime,openssl
 ENV GOEXPERIMENT=strictfipsruntime
@@ -28,16 +28,16 @@ COPY --from=builder /licenses /licenses
 
 USER 65534:65534
 
-LABEL com.redhat.component="istio-csr-container" \
+LABEL com.redhat.component="cert-manager-istio-csr-container" \
       name="cert-manager/istio-csr-rhel9" \
       version="${RELEASE_VERSION}" \
-      summary="istio-csr" \
+      summary="cert-manager-istio-csr" \
       maintainer="Red Hat, Inc." \
-      description="istio-csr-container" \
+      description="cert-manager-istio-csr-container" \
       io.openshift.expose-services="" \
       io.openshift.tags="data,images,cert-manager" \
       io.openshift.build.commit.id="${COMMIT_SHA}" \
       io.openshift.build.source-location="${SOURCE_URL}" \
       io.openshift.build.commit.url="${SOURCE_URL}/commit/${COMMIT_SHA}" \
-      io.k8s.display-name="istio-csr-controller" \
-      io.k8s.description="istio-csr-container"
+      io.k8s.display-name="cert-manager-istio-csr-controller" \
+      io.k8s.description="cert-manager-istio-csr-container"

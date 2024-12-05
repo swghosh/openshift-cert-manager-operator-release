@@ -1,12 +1,12 @@
 ## local variables.
 cert_manager_submodule_dir = cert-manager
 cert_manager_operator_submodule_dir = cert-manager-operator
-istio_csr_submodule_dir = istio-csr
+istio_csr_submodule_dir = cert-manager-istio-csr
 cert_manager_containerfile_name = Containerfile.cert-manager
 cert_manager_acmesolver_containerfile_name = Containerfile.cert-manager.acmesolver
 cert_manager_operator_containerfile_name = Containerfile.cert-manager-operator
 cert_manager_operator_bundle_containerfile_name = Containerfile.cert-manager-operator.bundle
-istio_csr_containerfile_name = Containerfile.istio-csr
+istio_csr_containerfile_name = Containerfile.cert-manager-istio-csr
 commit_sha = $(strip $(shell git rev-parse HEAD))
 source_url = $(strip $(shell git remote get-url origin))
 release_version = v$(strip $(shell git branch --show-current | cut -d'-' -f2))
@@ -59,7 +59,7 @@ CERT_MANAGER_ACMESOLVER_IMAGE ?= cert-manager-acmesolver
 IMAGE_VERSION ?= $(release_version)
 
 ## image for istio-csr
-ISTIO_CSR_IMAGE ?= istio-csr
+ISTIO_CSR_IMAGE ?= cert-manager-istio-csr
 
 ## image tag makes use of the branch name and
 ## when branch name is `main` use `latest` as the tag.
