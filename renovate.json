@@ -1,18 +1,40 @@
 {
-	"_comment": "Refer https://docs.renovatebot.com/configuration-options/ more details",
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
 	"extends": [
 		"https://github.com/konflux-ci/mintmaker/blob/main/config/renovate/renovate.json?raw=true"
 	],
+	"assigneesFromCodeOwners": true,
+	"automergeStrategy": "auto",
+	"automergeType": "pr",
+	"commitMessagePrefix": "NO-JIRA: ",
+	"ignoreTests": false,
+	"rebaseLabel": "needs-rebase",
+	"rebaseWhen": "behind-base-branch",
+	"recreateWhen": "always",
 	"tekton": {
-		"assigneesFromCodeOwners": true,
-		"automerge": true,
-		"automergeComment": "PR configured to be auto-merged by renovate-bot",
-		"automergeStrategy": "rebase",
-		"automergeType": "pr-comment",
 		"enabled": true,
-		"ignoreTests": false,
-		"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-		"platformAutomerge": true
+		"packageRules": [
+			{
+				"matchUpdateTypes": [
+					"minor",
+					"patch",
+					"pin",
+					"digest"
+				],
+				"automerge": true
+			}
+		]
+	},
+	"dockerfile": {
+		"enabled": true,
+		"packageRules": [
+			{
+				"matchFileNames": ["Containerfile.*"],
+				"automerge": true
+			}
+		]
+	},
+	"git-submodules": {
+		"enabled": false
 	}
 }
