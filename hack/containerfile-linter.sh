@@ -2,7 +2,7 @@
 
 declare -a CONTAINERFILES
 
-CERT_MANAGER_OPERATOR_CONTAINERFILES=($(ls Containerfile.*))
+mapfile -t CERT_MANAGER_OPERATOR_CONTAINERFILES < <(ls Containerfile.*)
 
 linter()
 {
@@ -33,7 +33,7 @@ containerfile_linter()
 ###############  MAIN  #######################
 ##############################################
 
-if [[ $# -gt 1 ]]; then
+if [[ $# -ge 1 ]]; then
 	CONTAINERFILES=("$@")
 	echo "[$(date)] -- INFO  -- running linter on $*"
 fi

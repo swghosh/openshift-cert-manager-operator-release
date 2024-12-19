@@ -55,6 +55,9 @@ CERT_MANAGER_IMAGE ?= cert-manager
 ## image name for cert-manager-acmesolver.
 CERT_MANAGER_ACMESOLVER_IMAGE ?= cert-manager-acmesolver
 
+## image name for cert-manager catalog.
+CATALOG_IMAGE ?= cert-manager-catalog
+
 ## image version to tag the created images with.
 IMAGE_VERSION ?= $(release_version)
 
@@ -72,6 +75,21 @@ IMAGE_BUILD_ARGS ?= --build-arg RELEASE_VERSION=$(release_version) --build-arg C
 
 ## tailored command to build images.
 IMAGE_BUILD_CMD = $(CONTAINER_ENGINE) build $(IMAGE_BUILD_ARGS)
+
+## path to store the tools binary.
+TOOL_BIN_DIR = $(strip $(shell git rev-parse --show-toplevel --show-superproject-working-tree | tail -1))/bin/tools
+
+## URL to download Operator Package Manager tool.
+OPM_DOWNLOAD_URL = https://github.com/operator-framework/operator-registry/releases/download/v1.48.0/linux-amd64-opm
+
+## Operator Package Manager tool path.
+OPM_TOOL_PATH ?= $(TOOL_BIN_DIR)/opm
+
+## Operator bundle image to use for generating catalog.
+OPERATOR_BUNDLE_IMAGE ?=
+
+## Catalog directory where generated catalog will be stored. Directory must have sub-directory with package `openshift-cert-manager-operator` name.
+CATALOG_DIR ?=
 
 .DEFAULT_GOAL := help
 ## usage summary.
@@ -113,7 +131,7 @@ update-submodules:
 
 ## build all the images - operator, operand and operator-bundle.
 .PHONY: build-images
-build-images: build-operand-images build-operator-image build-bundle-image
+build-images: build-operand-images build-operator-image build-bundle-image build-catalog-image
 
 ## build operator image.
 .PHONY: build-operator-image
@@ -139,6 +157,27 @@ build-cert-manager-image:
 build-cert-manager-acmesolver-image:
 	$(IMAGE_BUILD_CMD) -f $(cert_manager_acmesolver_containerfile_name) -t $(CERT_MANAGER_ACMESOLVER_IMAGE):$(IMAGE_VERSION) .
 
+## build operator catalog image.
+.PHONY: build-catalog-image
+build-catalog-image:
+	$(CONTAINER_ENGINE) build -f Containerfile.catalog -t $(CATALOG_IMAGE):$(IMAGE_VERSION) .
+
+## update catalog using the provided bundle image.
+.PHONY: update-catalog
+update-catalog: get-opm
+# validate required parameters are set.
+	@(if [ -z $(OPERATOR_BUNDLE_IMAGE) ] || [ -z $(CATALOG_DIR) ]; then echo "\n-- ERROR -- OPERATOR_BUNDLE_IMAGE and CATALOG_DIR parameters must be set for update-catalog target\n"; exit 1; fi)
+	@(if [ ! -f $(CATALOG_DIR)/openshift-cert-manager-operator/bundle.yaml ]; then echo "\n-- ERROR -- $(CATALOG_DIR)/openshift-cert-manager-operator/bundle.yaml does not exist\n"; exit 1; fi)
+
+# --migrate-level=bundle-object-to-csv-metadata is used for creating bundle metadata in `olm.csv.metadata` format.
+# Refer https://github.com/konflux-ci/build-definitions/blob/main/task/fbc-validation/0.1/TROUBLESHOOTING.md for details.
+	$(OPM_TOOL_PATH) render $(OPERATOR_BUNDLE_IMAGE) --migrate-level=bundle-object-to-csv-metadata -o yaml > $(CATALOG_DIR)/openshift-cert-manager-operator/bundle.yaml
+	$(OPM_TOOL_PATH) validate $(CATALOG_DIR)
+
+## update catalog and build catalog image.
+.PHONY: catalog
+catalog: get-opm update-catalog build-catalog-image
+
 ## build operand istio-csr image.
 .PHONY: build-istio-csr-image
 build-istio-csr-image:
@@ -156,8 +195,39 @@ verify-containerfiles:
 
 ## verify the changes are working as expected.
 .PHONY: verify
-verify: verify-shell-scripts verify-containerfiles build-images
+verify: verify-shell-scripts verify-containerfiles validate-renovate-config build-images
 
 ## update all required contents.
 .PHONY: update
 update: update-submodules
+
+## get opm(operator package manager) tool.
+.PHONY: get-opm
+get-opm:
+	$(call get-bin,$(OPM_TOOL_PATH),$(TOOL_BIN_DIR),$(OPM_DOWNLOAD_URL))
+
+define get-bin
+@[ -f "$(1)" ] || { \
+	[ ! -d "$(2)" ] && mkdir -p "$(2)" || true ;\
+	echo "Downloading $(3)" ;\
+	curl -fL $(3) -o "$(1)" ;\
+	chmod +x "$(1)" ;\
+}
+endef
+
+## clean up temp dirs, images.
+.PHONY: clean
+clean:
+	podman rmi -i $(CERT_MANAGER_OPERATOR_IMAGE):$(IMAGE_VERSION) \
+$(CERT_MANAGER_IMAGE):$(IMAGE_VERSION) \
+$(CERT_MANAGER_ACMESOLVER_IMAGE):$(IMAGE_VERSION) \
+$(CERT_MANAGER_OPERATOR_BUNDLE_IMAGE):$(IMAGE_VERSION) \
+$(CATALOG_IMAGE):$(IMAGE_VERSION)
+
+	rm -r $(TOOL_BIN_DIR)
+
+## validate renovate config.
+.PHONY: validate-renovate-config
+validate-renovate-config:
+	./hack/renovate-config-validator.sh
+
