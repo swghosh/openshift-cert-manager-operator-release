@@ -44,6 +44,8 @@ spec:
       - "RELEASE_VERSION=v1.15.0"
       - "COMMIT_SHA={{revision}}"
       - "SOURCE_URL={{source_url}}"
+  - name: prefetch-input
+    value: '{"type": "gomod", "path": "cert-manager-istio-csr"}'
   pipelineSpec:
     description: |
       This pipeline is ideal for building multi-arch container images from a Containerfile while maintaining trust after pipeline customization.
