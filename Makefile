@@ -126,9 +126,7 @@ build-operator-image:
 
 ## build all operand images
 .PHONY: build-operand-images
-build-operand-images:
-	$(IMAGE_BUILD_CMD) -f $(cert_manager_containerfile_name) -t $(CERT_MANAGER_IMAGE):$(IMAGE_VERSION) .
-	$(IMAGE_BUILD_CMD) -f $(cert_manager_acmesolver_containerfile_name) -t $(CERT_MANAGER_ACMESOLVER_IMAGE):$(IMAGE_VERSION) .
+build-operand-images: build-cert-manager-image build-cert-manager-acmesolver-image
 
 ## build operator bundle image.
 .PHONY: build-bundle-image
@@ -153,17 +151,12 @@ build-catalog-image:
 ## update catalog using the provided bundle image.
 .PHONY: update-catalog
 update-catalog: get-opm
+# validate required parameters are set.
+	@(if [ -z $(OPERATOR_BUNDLE_IMAGE) ] || [ -z $(CATALOG_DIR) ]; then echo "\n-- ERROR -- OPERATOR_BUNDLE_IMAGE and CATALOG_DIR parameters must be set for update-catalog target\n"; exit 1; fi)
+	@(if [ ! -f $(CATALOG_DIR)/openshift-cert-manager-operator/bundle.yaml ]; then echo "\n-- ERROR -- $(CATALOG_DIR)/openshift-cert-manager-operator/bundle.yaml does not exist\n"; exit 1; fi)
 
-## validate required parameters are set.
-ifndef OPERATOR_BUNDLE_IMAGE
-$(error OPERATOR_BUNDLE_IMAGE parameter must be set for update-catalog target)
-endif
-ifndef CATALOG_DIR
-$(error CATALOG_DIR parameter must be set for update-catalog target)
-endif
-
-	# --migrate-level=bundle-object-to-csv-metadata is used for creating bundle metadata in `olm.csv.metadata` format.
-	# Refer https://github.com/konflux-ci/build-definitions/blob/main/task/fbc-validation/0.1/TROUBLESHOOTING.md for details.
+# --migrate-level=bundle-object-to-csv-metadata is used for creating bundle metadata in `olm.csv.metadata` format.
+# Refer https://github.com/konflux-ci/build-definitions/blob/main/task/fbc-validation/0.1/TROUBLESHOOTING.md for details.
 	$(OPM_TOOL_PATH) render $(OPERATOR_BUNDLE_IMAGE) --migrate-level=bundle-object-to-csv-metadata -o yaml > $(CATALOG_DIR)/openshift-cert-manager-operator/bundle.yaml
 	$(OPM_TOOL_PATH) validate $(CATALOG_DIR)
 
@@ -183,7 +176,7 @@ verify-containerfiles:
 
 ## verify the changes are working as expected.
 .PHONY: verify
-verify: verify-shell-scripts verify-containerfiles build-images
+verify: verify-shell-scripts verify-containerfiles validate-renovate-config build-images
 
 ## update all required contents.
 .PHONY: update
@@ -213,3 +206,8 @@ $(CERT_MANAGER_OPERATOR_BUNDLE_IMAGE):$(IMAGE_VERSION) \
 $(CATALOG_IMAGE):$(IMAGE_VERSION)
 
 	rm -r $(TOOL_BIN_DIR)
+
+## validate renovate config.
+.PHONY: validate-renovate-config
+validate-renovate-config:
+	./hack/renovate-config-validator.sh
