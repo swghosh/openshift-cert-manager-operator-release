@@ -1,5 +1,5 @@
 ---
-image: registry.stage.redhat.io/cert-manager/cert-manager-operator-bundle@sha256:57f871eb24ac52cb091062b1bb30557d34f6d833d10809334e5c00b6ea9004ac
+image: registry.stage.redhat.io/cert-manager/cert-manager-operator-bundle@sha256:4114321b0ab6ceb882f26501ff9b22214d90b83d92466e7c5a62217f592c1fed
 name: cert-manager-operator.v1.15.0
 package: openshift-cert-manager-operator
 properties:
@@ -253,8 +253,8 @@ properties:
       capabilities: Seamless Upgrades
       categories: Security
       console.openshift.io/disable-operand-delete: "true"
-      containerImage: registry.stage.redhat.io/cert-manager/cert-manager-operator-rhel9@sha256:439dc04731a7d7583cd6d19eb556dcc8d30350006c4513ff21ec03109efccd68
-      createdAt: 2024-12-05T05:28:15
+      containerImage: registry.stage.redhat.io/cert-manager/cert-manager-operator-rhel9@sha256:ae16add49ecb0ccb07fcae090ccab76a813d07686daaec3d86812f69a14f818b
+      createdAt: 2025-01-08T12:24:49
       features.operators.openshift.io/cnf: "false"
       features.operators.openshift.io/cni: "false"
       features.operators.openshift.io/csi: "false"
@@ -344,11 +344,9 @@ properties:
     provider:
       name: Red Hat
 relatedImages:
-- image: registry.redhat.io/openshift4/ose-kube-rbac-proxy-rhel9@sha256:6fbeaf03058bb5d6e9e3311a7afe67666e0770532c978b6b57e77ea2851cb085
+- image: registry.stage.redhat.io/cert-manager/cert-manager-operator-bundle@sha256:4114321b0ab6ceb882f26501ff9b22214d90b83d92466e7c5a62217f592c1fed
   name: ""
-- image: registry.stage.redhat.io/cert-manager/cert-manager-operator-bundle@sha256:57f871eb24ac52cb091062b1bb30557d34f6d833d10809334e5c00b6ea9004ac
-  name: ""
-- image: registry.stage.redhat.io/cert-manager/cert-manager-operator-rhel9@sha256:439dc04731a7d7583cd6d19eb556dcc8d30350006c4513ff21ec03109efccd68
+- image: registry.stage.redhat.io/cert-manager/cert-manager-operator-rhel9@sha256:ae16add49ecb0ccb07fcae090ccab76a813d07686daaec3d86812f69a14f818b
   name: ""
 - image: registry.stage.redhat.io/cert-manager/jetstack-cert-manager-acmesolver-rhel9@sha256:54a06ce6c31b6f3c1d7798e13e017e623ebfb5076d7810b7397be4ae59207427
   name: cert-manager-acmesolver
