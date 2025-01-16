@@ -2,7 +2,7 @@
 
 declare -a CONTAINERFILES
 
-mapfile -t CERT_MANAGER_OPERATOR_CONTAINERFILES < <(ls Containerfile.*)
+CERT_MANAGER_OPERATOR_CONTAINERFILES=($(find . -type f -name 'Containerfile*' '!' -path './cert-manager/*' '!' -path './cert-manager-operator/*' '!' -path './cert-manager-istio-csr/*'))
 
 linter()
 {
