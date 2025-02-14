@@ -22,7 +22,6 @@ ARG COMMIT_SHA
 ARG SOURCE_URL
 ARG SOURCE_DIR="/go/src/github.com/openshift/cert-manager-istio-csr"
 
-
 COPY --from=builder $SOURCE_DIR/_output/cert-manager-istio-csr /usr/local/bin/cert-manager-istio-csr
 COPY --from=builder /licenses /licenses
 
@@ -34,6 +33,8 @@ LABEL com.redhat.component="cert-manager-istio-csr-container" \
       summary="cert-manager-istio-csr" \
       maintainer="Red Hat, Inc." \
       description="cert-manager-istio-csr-container" \
+      vendor="Red Hat, Inc." \
+      release="${RELEASE_VERSION}" \
       io.openshift.expose-services="" \
       io.openshift.tags="data,images,cert-manager" \
       io.openshift.build.commit.id="${COMMIT_SHA}" \
