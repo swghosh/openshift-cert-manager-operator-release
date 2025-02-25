@@ -12,7 +12,8 @@ ARG CERT_MANAGER_OPERATOR_IMAGE=registry.redhat.io/cert-manager/cert-manager-ope
     CERT_MANAGER_WEBHOOK_IMAGE=registry.redhat.io/cert-manager/jetstack-cert-manager-rhel9@sha256:5be6fd3c5ad3128b2b32438e8d1c25f5261deba1cdb65f2c87344009948da7a8 \
     CERT_MANAGER_CA_INJECTOR_IMAGE=registry.redhat.io/cert-manager/jetstack-cert-manager-rhel9@sha256:5be6fd3c5ad3128b2b32438e8d1c25f5261deba1cdb65f2c87344009948da7a8 \
     CERT_MANAGER_CONTROLLER_IMAGE=registry.redhat.io/cert-manager/jetstack-cert-manager-rhel9@sha256:5be6fd3c5ad3128b2b32438e8d1c25f5261deba1cdb65f2c87344009948da7a8 \
-    CERT_MANAGER_ACMESOLVER_IMAGE=registry.redhat.io/cert-manager/jetstack-cert-manager-acmesolver-rhel9@sha256:32ca590f38af6c5d367609586869375087f863b318ce7c302aecab537f103035
+    CERT_MANAGER_ACMESOLVER_IMAGE=registry.redhat.io/cert-manager/jetstack-cert-manager-acmesolver-rhel9@sha256:32ca590f38af6c5d367609586869375087f863b318ce7c302aecab537f103035 \
+    CERT_MANAGER_ISTIOCSR_IMAGE=registry.stage.redhat.io/cert-manager/cert-manager-istio-csr-rhel9@sha256:8c8404212d977f69b2b49f81dcb82fd08199e926c24a6b9e45259556ce1ad5e9
 
 ENV GO_BUILD_TAGS=strictfipsruntime,openssl
 ENV GOEXPERIMENT=strictfipsruntime
@@ -26,7 +27,8 @@ RUN ./render_templates.sh /manifests /metadata \
     "${CERT_MANAGER_WEBHOOK_IMAGE}" \
     "${CERT_MANAGER_CA_INJECTOR_IMAGE}" \
     "${CERT_MANAGER_CONTROLLER_IMAGE}" \
-    "${CERT_MANAGER_ACMESOLVER_IMAGE}"
+    "${CERT_MANAGER_ACMESOLVER_IMAGE}" \
+    "${CERT_MANAGER_ISTIOCSR_IMAGE}"
 
 FROM registry.redhat.io/rhel9-4-els/rhel-minimal:9.4
 
