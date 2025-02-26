@@ -32,9 +32,9 @@ spec:
     value: .
   - name: build-args
     value:
-      - "RELEASE_VERSION=v0.12.0"
-      - "COMMIT_SHA={{revision}}"
-      - "SOURCE_URL={{source_url}}"
+    - "RELEASE_VERSION=v0.12.0"
+    - "COMMIT_SHA={{revision}}"
+    - "SOURCE_URL={{source_url}}"
   - name: prefetch-input
     value: '{"type": "gomod", "path": "cert-manager-istio-csr"}'
   pipelineRef:
