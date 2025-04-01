@@ -37,16 +37,16 @@ IMAGE_BUILD_CMD = $(CONTAINER_ENGINE) build $(IMAGE_BUILD_ARGS)
 TOOL_BIN_DIR = $(strip $(shell git rev-parse --show-toplevel --show-superproject-working-tree | tail -1))/bin/tools
 
 ## URL to download Operator Package Manager tool.
-OPM_DOWNLOAD_URL = https://github.com/operator-framework/operator-registry/releases/download/v1.48.0/linux-amd64-opm
+OPM_DOWNLOAD_URL = https://github.com/operator-framework/operator-registry/releases/download/v1.48.0/$(shell go env GOOS)-$(shell go env GOARCH)-opm
 
 ## Operator Package Manager tool path.
 OPM_TOOL_PATH ?= $(TOOL_BIN_DIR)/opm
 
 ## Operator bundle image to use for generating catalog.
-OPERATOR_BUNDLE_IMAGE ?=
+OPERATOR_BUNDLE_IMAGE ?= 
 
 ## Catalog directory where generated catalog will be stored. Directory must have sub-directory with package `openshift-cert-manager-operator` name.
-CATALOG_DIR ?=
+CATALOG_DIR ?= "catalog/"
 
 .DEFAULT_GOAL := help
 ## usage summary.
@@ -80,7 +80,6 @@ build-catalog-image:
 update-catalog: get-opm
 # validate required parameters are set.
 	@(if [ -z $(OPERATOR_BUNDLE_IMAGE) ] || [ -z $(CATALOG_DIR) ]; then echo "\n-- ERROR -- OPERATOR_BUNDLE_IMAGE and CATALOG_DIR parameters must be set for update-catalog target\n"; exit 1; fi)
-	@(if [ ! -f $(CATALOG_DIR)/openshift-cert-manager-operator/bundle.yaml ]; then echo "\n-- ERROR -- $(CATALOG_DIR)/openshift-cert-manager-operator/bundle.yaml does not exist\n"; exit 1; fi)
 
 # --migrate-level=bundle-object-to-csv-metadata is used for creating bundle metadata in `olm.csv.metadata` format.
 # Refer https://github.com/konflux-ci/build-definitions/blob/main/task/fbc-validation/0.1/TROUBLESHOOTING.md for details.
@@ -89,7 +88,12 @@ update-catalog: get-opm
 
 ## update catalog and build catalog image.
 .PHONY: catalog
-catalog: get-opm update-catalog build-catalog-image
+catalog: get-opm build-catalog-image
+
+# Only run update-catalog if OPERATOR_BUNDLE_IMAGE is set
+ifneq ($(OPERATOR_BUNDLE_IMAGE),)
+    catalog: get-opm update-catalog build-catalog-image
+endif
 
 ## check shell scripts.
 .PHONY: verify-shell-scripts
