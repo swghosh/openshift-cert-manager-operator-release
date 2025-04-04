@@ -20,8 +20,7 @@ ENV GOEXPERIMENT=strictfipsruntime
 ENV CGO_ENABLED=1
 ENV GOFLAGS=""
 
-COPY tools.go go.mod go.sum /
-RUN go build -o /usr/bin/yq github.com/mikefarah/yq/v4 && chmod +x /usr/bin/yq
+RUN GOBIN=/usr/bin go install github.com/mikefarah/yq/v4@v4.45.1
 RUN ./render_templates.sh /manifests /metadata \
     "${CERT_MANAGER_OPERATOR_IMAGE}" \
     "${CERT_MANAGER_WEBHOOK_IMAGE}" \
