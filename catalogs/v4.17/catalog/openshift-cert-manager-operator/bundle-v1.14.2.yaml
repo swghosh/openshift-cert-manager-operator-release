@@ -1,5 +1,5 @@
 ---
-image: registry.redhat.io/cert-manager/cert-manager-operator-bundle@sha256:002b18058d6c369eb6ab87f44f47017b6a86828f0056e34dd6b7e86a60c54467
+image: registry.redhat.io/cert-manager/cert-manager-operator-bundle@sha256:a2a1f3e0d6395d19e12e8d7a12f2b0039637fd9a8117c4b522ad8fa36aac279b
 name: cert-manager-operator.v1.14.2
 package: openshift-cert-manager-operator
 properties:
@@ -344,7 +344,7 @@ properties:
     provider:
       name: Red Hat
 relatedImages:
-- image: registry.redhat.io/cert-manager/cert-manager-operator-bundle@sha256:002b18058d6c369eb6ab87f44f47017b6a86828f0056e34dd6b7e86a60c54467
+- image: registry.redhat.io/cert-manager/cert-manager-operator-bundle@sha256:a2a1f3e0d6395d19e12e8d7a12f2b0039637fd9a8117c4b522ad8fa36aac279b
   name: ""
 - image: registry.redhat.io/cert-manager/cert-manager-operator-rhel9@sha256:5c593bfd70309f87cd05716e233e65aa55394eafcdaf85f178698912cb29d79d
   name: ""
