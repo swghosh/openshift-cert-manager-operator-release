@@ -7,8 +7,9 @@ metadata:
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/cancel-in-progress: "false"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
-    pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch == "main" &&
-      ( "./catalogs/v4.15/***".pathChanged() || ".tekton/cert-manager-operator-index-4-15-push.yaml".pathChanged() )
+    pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
+      == "main" && ( "./catalogs/v4.15/***".pathChanged() || ".tekton/cert-manager-operator-index-4-15-push.yaml".pathChanged()
+      )
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: cert-manager-operator-index-4-15
@@ -29,10 +30,11 @@ spec:
   - name: path-context
     value: catalogs/v4.15
   - name: build-args
-    value: [ ]
+    value: []
   pipelineRef:
     name: fbc-build-pipeline
-  taskRunTemplate: {}
+  taskRunTemplate:
+    serviceAccountName: build-pipeline-cert-manager-operator-index-4-15
   workspaces:
   - name: git-auth
     secret:
