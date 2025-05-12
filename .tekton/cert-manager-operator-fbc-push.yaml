@@ -24,7 +24,7 @@ spec:
   - name: revision
     value: '{{revision}}'
   - name: output-image
-    value: quay.io/redhat-user-workloads/cert-manager-oape-tenant/cert-manager-operator/cert-manager-operator-fbc:{{revision}}
+    value: quay.io/redhat-user-workloads/cert-manager-oape-tenant/cert-manager-operator/cert-manager-operator-fbc:latest
   - name: dockerfile
     value: Containerfile.catalog
   - name: path-context
