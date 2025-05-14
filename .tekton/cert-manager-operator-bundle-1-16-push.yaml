@@ -2,21 +2,19 @@ apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
   annotations:
-    build.appstudio.openshift.io/pipeline: '{"name":"docker-build-multi-platform-oci-ta","bundle":"latest"}'
     build.appstudio.openshift.io/repo: https://github.com/openshift/cert-manager-operator-release?rev={{revision}}
-    build.appstudio.openshift.io/request: configure-pac
     build.appstudio.redhat.com/commit_sha: '{{revision}}'
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
+    pipelinesascode.tekton.dev/cancel-in-progress: "false"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
-      == "release-1.15" && (".tekton/jetstack-cert-manager-acmesolver-1-15-push.yaml".pathChanged()
-      || "Containerfile.cert-manager.acmesolver".pathChanged() || "cert-manager/***".pathChanged())
+      == "release-1.16"
   creationTimestamp: null
   labels:
-    appstudio.openshift.io/application: jetstack-cert-manager-1-15
-    appstudio.openshift.io/component: jetstack-cert-manager-acmesolver-1-15
+    appstudio.openshift.io/application: cert-manager-operator-1-16
+    appstudio.openshift.io/component: cert-manager-operator-bundle-1-16
     pipelines.appstudio.openshift.io/type: build
-  name: jetstack-cert-manager-acmesolver-1-15-on-push
+  name: cert-manager-operator-bundle-1-16-on-push
   namespace: cert-manager-oape-tenant
 spec:
   params:
@@ -25,22 +23,22 @@ spec:
   - name: revision
     value: '{{revision}}'
   - name: output-image
-    value: quay.io/redhat-user-workloads/cert-manager-oape-tenant/jetstack-cert-manager-1-15/jetstack-cert-manager-acmesolver-1-15:{{revision}}
+    value: quay.io/redhat-user-workloads/cert-manager-oape-tenant/cert-manager-operator-1-16/cert-manager-operator-bundle-1-16:{{revision}}
   - name: dockerfile
-    value: Containerfile.cert-manager.acmesolver
+    value: Containerfile.cert-manager-operator.bundle
   - name: path-context
     value: .
   - name: build-args
     value:
-    - RELEASE_VERSION=v1.15.5
+    - RELEASE_VERSION=v1.16.0
     - COMMIT_SHA={{revision}}
     - SOURCE_URL={{source_url}}
   - name: prefetch-input
-    value: '{"type": "gomod", "path": "cert-manager"}'
+    value: '{"type": "gomod", "path": "."}'
   pipelineRef:
-    name: multi-arch-build-pipeline
+    name: single-arch-build-pipeline
   taskRunTemplate:
-    serviceAccountName: build-pipeline-jetstack-cert-manager-acmesolver-1-15
+    serviceAccountName: build-pipeline-cert-manager-operator-bundle-1-16
   workspaces:
   - name: git-auth
     secret:
