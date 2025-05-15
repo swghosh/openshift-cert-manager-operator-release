@@ -8,7 +8,9 @@ metadata:
     pipelinesascode.tekton.dev/cancel-in-progress: "false"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
-      == "release-1.16"
+      == "release-1.16" && (".tekton/cert-manager-operator-bundle-1-16-push.yaml".pathChanged() ||
+      "Containerfile.cert-manager-operator.bundle".pathChanged() || "hack/bundle/render_templates.sh".pathChanged() ||
+      "cert-manager-operator/***".pathChanged())
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: cert-manager-operator-1-16
