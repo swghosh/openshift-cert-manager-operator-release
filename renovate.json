@@ -35,7 +35,7 @@
 		]
 	},
 	"git-submodules": {
-		"enabled": false
+		"enabled": true
 	},
 	"gomod": {
 		"enabled": false
