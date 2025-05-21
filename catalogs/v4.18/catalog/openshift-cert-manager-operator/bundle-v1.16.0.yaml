@@ -1,5 +1,5 @@
 ---
-image: registry.stage.redhat.io/cert-manager/cert-manager-operator-bundle@sha256:d15f49b7293bd4b56c3727282647e4c7ef3adfb4dcac3f0575b96f9b945406ec
+image: registry.stage.redhat.io/cert-manager/cert-manager-operator-bundle@sha256:afe857491466273ac5b1e2272421cb160c1ded476024212d948ad3fc4d1cdc7c
 name: cert-manager-operator.v1.16.0
 package: openshift-cert-manager-operator
 properties:
@@ -287,7 +287,7 @@ properties:
       categories: Security
       console.openshift.io/disable-operand-delete: "true"
       containerImage: registry.stage.redhat.io/cert-manager/cert-manager-operator-rhel9@sha256:e26f59e17a1d652734db9251879438b5f7eb52545f8dfd470f2b5d855a4958a5
-      createdAt: 2025-05-15T11:25:20
+      createdAt: 2025-05-15T11:57:14
       features.operators.openshift.io/cnf: "false"
       features.operators.openshift.io/cni: "false"
       features.operators.openshift.io/csi: "false"
@@ -381,7 +381,7 @@ properties:
 relatedImages:
 - image: registry.stage.redhat.io/cert-manager/cert-manager-istio-csr-rhel9@sha256:9ea2c29a384b964cef14f853278821df3cd30320f25afab8823897192f67fc7e
   name: cert-manager-istiocsr
-- image: registry.stage.redhat.io/cert-manager/cert-manager-operator-bundle@sha256:d15f49b7293bd4b56c3727282647e4c7ef3adfb4dcac3f0575b96f9b945406ec
+- image: registry.stage.redhat.io/cert-manager/cert-manager-operator-bundle@sha256:afe857491466273ac5b1e2272421cb160c1ded476024212d948ad3fc4d1cdc7c
   name: ""
 - image: registry.stage.redhat.io/cert-manager/cert-manager-operator-rhel9@sha256:e26f59e17a1d652734db9251879438b5f7eb52545f8dfd470f2b5d855a4958a5
   name: ""
