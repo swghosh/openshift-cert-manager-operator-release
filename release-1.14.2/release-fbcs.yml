@@ -1,0 +1,39 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  generateName: cert-manager-operator-1-14-2-fbc-4-14-prod-
+  namespace: cert-manager-oape-tenant
+spec:
+  gracePeriodDays: 14
+  releasePlan: cert-manager-operator-index-prod-4-14
+  snapshot: cert-manager-operator-index-4-14-6l4gq
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  generateName: cert-manager-operator-1-14-2-fbc-4-15-prod-
+  namespace: cert-manager-oape-tenant
+spec:
+  gracePeriodDays: 14
+  releasePlan: cert-manager-operator-index-prod-4-15
+  snapshot: cert-manager-operator-index-4-15-8cs5d
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  generateName: cert-manager-operator-1-14-2-fbc-4-16-prod-
+  namespace: cert-manager-oape-tenant
+spec:
+  gracePeriodDays: 14
+  releasePlan: cert-manager-operator-index-prod-4-16
+  snapshot: cert-manager-operator-index-4-16-w24xn
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  generateName: cert-manager-operator-1-14-2-fbc-4-17-prod-
+  namespace: cert-manager-oape-tenant
+spec:
+  gracePeriodDays: 14
+  releasePlan: cert-manager-operator-index-prod-4-17
+  snapshot: cert-manager-operator-index-4-17-djtff

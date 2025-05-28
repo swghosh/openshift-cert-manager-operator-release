@@ -1,0 +1,32 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  generateName: cert-manager-operator-1-16-0-prod-
+  namespace: cert-manager-oape-tenant
+spec:
+  data:
+    releaseNotes:
+      type: "RHEA"
+      description: The cert-manager Operator for Red Hat OpenShift builds on top of
+        Kubernetes, introducing certificate authorities and certificates as first-class
+        resource types in the Kubernetes API. This makes it possible to provide certificates-as-a-service
+        to developers working within your Kubernetes cluster.
+      fixed:
+      - id: CM-526
+        source: https://issues.redhat.com/browse/CM-526
+      - id: CM-429
+        source: https://issues.redhat.com/browse/CM-429
+      references: https://docs.openshift.com/container-platform/latest/security/cert_manager_operator/index.html
+      solution: |-
+        Before applying this update, make sure all previously released errata relevant to your system have been applied.
+
+        The steps to apply the upgraded images are different depending on the installation plan approval policy you used when installing the cert-manager Operator for Red Hat OpenShift.
+        - If the approval policy is set to `Automatic`, then the Operator will be upgraded automatically when there is a new version of the Operator. No further action is required to upgrade. This is the default setting.
+        - If you changed the approval policy to `Manual`, then you must manually approve the upgrade to the Operator.
+
+        See https://docs.openshift.com/container-platform/latest/security/cert_manager_operator/index.html for additional information.
+      synopsis: cert-manager Operator for Red Hat OpenShift 1.16.0
+      topic: cert-manager Operator for Red Hat OpenShift 1.16.0
+  gracePeriodDays: 14
+  releasePlan: cert-manager-operator-prod-1-16
+  snapshot: cert-manager-operator-1-16-grl4f

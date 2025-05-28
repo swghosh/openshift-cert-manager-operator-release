@@ -1,0 +1,36 @@
+istio-csr
+✅ v0.14.0: registry.redhat.io/cert-manager/cert-manager-istio-csr-rhel9@sha256:9573d74bd2b926ec94af76f813e6358f14c5b2f4e0eedab7c1ff1070b7279a5c
+
+---
+
+acmesolver
+v1.15.5: registry.redhat.io/cert-manager/jetstack-cert-manager-acmesolver-rhel9@sha256:20efff60a0caf5eafb38986fd21611697b5bc534c2e789da233983a9739938ed
+
+acmesolver
+v1.15.4: registry.redhat.io/cert-manager/jetstack-cert-manager-acmesolver-rhel9@sha256:32ca590f38af6c5d367609586869375087f863b318ce7c302aecab537f103035
+
+---
+
+cert-manager
+v1.15.5: registry.redhat.io/cert-manager/jetstack-cert-manager-rhel9@sha256:6af3ee8b2a5a87042fb7158bda8d6cf2e6324d1e265974acf77214d4cd0ea0d3
+
+cert-manager
+✅ v1.15.4: registry.redhat.io/cert-manager/jetstack-cert-manager-rhel9@sha256:5be6fd3c5ad3128b2b32438e8d1c25f5261deba1cdb65f2c87344009948da7a8
+
+---
+
+operator
+✅ v1.15.1: registry.redhat.io/cert-manager/cert-manager-operator-rhel9@sha256:f328263e2d29e34ede65e4501f0447b2d9f84e9445a365c2fa2fbb253939e274
+
+operator
+✅ v1.15.0: registry.redhat.io/cert-manager/cert-manager-operator-rhel9@sha256:851784401c5a28d310cb453c231eaaf293641afef09134b96a495114fb32005d
+
+---
+
+bundle
+✅ v1.15.1: registry.redhat.io/cert-manager/cert-manager-operator-bundle
+sha256:f252d6f89a7cdcc520c3af461ca57d0dfabf736b9c38277d77477c4c880e182c
+
+bundle
+✅ v1.15.0: registry.redhat.io/cert-manager/cert-manager-operator-bundle
+sha256:9a212e5a65ec7a71b4462539902515cfeecf5b02fd8a3f3beaaa6c5ecfc49ec2

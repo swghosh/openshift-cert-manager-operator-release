@@ -1,0 +1,485 @@
+apiVersion: v1
+items:
+- apiVersion: appstudio.redhat.com/v1alpha1
+  kind: Release
+  metadata:
+    annotations:
+      pac.test.appstudio.openshift.io/branch: main
+      pac.test.appstudio.openshift.io/cancel-in-progress: "false"
+      pac.test.appstudio.openshift.io/check-run-id: "40228190052"
+      pac.test.appstudio.openshift.io/controller-info: '{"name":"default","configmap":"pipelines-as-code","secret":"pipelines-as-code-secret",
+        "gRepo": "pipelines-as-code"}'
+      pac.test.appstudio.openshift.io/event-type: incoming
+      pac.test.appstudio.openshift.io/git-auth-secret: pac-gitauth-iqeezp
+      pac.test.appstudio.openshift.io/git-provider: github
+      pac.test.appstudio.openshift.io/installation-id: "35333059"
+      pac.test.appstudio.openshift.io/log-url: https://console.redhat.com/application-pipeline/ns/cert-manager-oape-tenant/pipelinerun/cert-manager-operator-index-4-14-on-push-dpgbx
+      pac.test.appstudio.openshift.io/max-keep-runs: "3"
+      pac.test.appstudio.openshift.io/on-cel-expression: event == "push" && target_branch
+        == "main" && ( "./catalogs/v4.14/***".pathChanged() || ".tekton/cert-manager-operator-index-4-14-push.yaml".pathChanged()
+        )
+      pac.test.appstudio.openshift.io/original-prname: cert-manager-operator-index-4-14-on-push
+      pac.test.appstudio.openshift.io/repo-url: https://github.com/openshift/cert-manager-operator-release
+      pac.test.appstudio.openshift.io/repository: cert-manager-operator-1-15
+      pac.test.appstudio.openshift.io/sender: incoming
+      pac.test.appstudio.openshift.io/sha: e9a8e0b3af53216e65bddcb35dbad7ee8fe4f23a
+      pac.test.appstudio.openshift.io/sha-title: 'Merge pull request #353 from swghosh/main'
+      pac.test.appstudio.openshift.io/sha-url: https://github.com/openshift/cert-manager-operator-release/commit/e9a8e0b3af53216e65bddcb35dbad7ee8fe4f23a
+      pac.test.appstudio.openshift.io/source-branch: main
+      pac.test.appstudio.openshift.io/source-repo-url: ""
+      pac.test.appstudio.openshift.io/state: completed
+      pac.test.appstudio.openshift.io/url-org: openshift
+      pac.test.appstudio.openshift.io/url-repository: cert-manager-operator-release
+    creationTimestamp: "2025-04-09T07:01:09Z"
+    finalizers:
+    - appstudio.redhat.com/release-finalizer
+    generateName: cert-manager-operator-index-4-14-6l4gq-e9a8e0b-
+    generation: 1
+    labels:
+      appstudio.openshift.io/application: cert-manager-operator-index-4-14
+      appstudio.openshift.io/build-pipelinerun: cert-manager-operator-index-4-14-on-push-dpgbx
+      appstudio.openshift.io/component: cert-manager-operator-index-4-14
+      pac.test.appstudio.openshift.io/check-run-id: "40228190052"
+      pac.test.appstudio.openshift.io/event-type: incoming
+      pac.test.appstudio.openshift.io/original-prname: cert-manager-operator-index-4-14-on-push
+      pac.test.appstudio.openshift.io/repository: cert-manager-operator-1-15
+      pac.test.appstudio.openshift.io/sha: e9a8e0b3af53216e65bddcb35dbad7ee8fe4f23a
+      pac.test.appstudio.openshift.io/state: completed
+      pac.test.appstudio.openshift.io/url-org: openshift
+      pac.test.appstudio.openshift.io/url-repository: cert-manager-operator-release
+      release.appstudio.openshift.io/automated: "true"
+    name: cert-manager-operator-index-4-14-6l4gq-e9a8e0b-tgzwq
+    namespace: cert-manager-oape-tenant
+    ownerReferences:
+    - apiVersion: appstudio.redhat.com/v1alpha1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Application
+      name: cert-manager-operator-index-4-14
+      uid: 8389b27d-4c5d-4763-be4c-a2c2a73cebcb
+    resourceVersion: "3583214848"
+    uid: 10e27358-e9d0-4b60-a3a4-c895dcf84355
+  spec:
+    gracePeriodDays: 7
+    releasePlan: cert-manager-operator-index-staging-4-14
+    snapshot: cert-manager-operator-index-4-14-6l4gq
+  status:
+    artifacts:
+      index_image:
+        index_image: registry-proxy.engineering.redhat.com/rh-osbs/iib:952423
+        index_image_resolved: registry-proxy.engineering.redhat.com/rh-osbs/iib@sha256:59e5b76153bd01b43806d2f8d33bf96617c342f635a6f6553ee53033059b0add
+        target_index: ""
+    attribution:
+      author: system_serviceaccount_remote-argocd_remote-argocd
+      standingAuthorization: true
+    automated: true
+    completionTime: "2025-04-09T07:18:50Z"
+    conditions:
+    - lastTransitionTime: "2025-04-09T07:18:50Z"
+      message: ""
+      reason: Succeeded
+      status: "True"
+      type: Released
+    - lastTransitionTime: "2025-04-09T07:01:09Z"
+      message: ""
+      reason: Succeeded
+      status: "True"
+      type: Validated
+    - lastTransitionTime: "2025-04-09T07:01:09Z"
+      message: ""
+      reason: Skipped
+      status: "True"
+      type: TenantCollectorsPipelineProcessed
+    - lastTransitionTime: "2025-04-09T07:01:09Z"
+      message: ""
+      reason: Skipped
+      status: "True"
+      type: ManagedCollectorsPipelineProcessed
+    - lastTransitionTime: "2025-04-09T07:01:09Z"
+      message: ""
+      reason: Skipped
+      status: "True"
+      type: TenantPipelineProcessed
+    - lastTransitionTime: "2025-04-09T07:18:50Z"
+      message: ""
+      reason: Succeeded
+      status: "True"
+      type: ManagedPipelineProcessed
+    - lastTransitionTime: "2025-04-09T07:18:50Z"
+      message: ""
+      reason: Skipped
+      status: "True"
+      type: FinalPipelineProcessed
+    expirationTime: "2025-04-16T07:01:09Z"
+    managedProcessing:
+      completionTime: "2025-04-09T07:18:50Z"
+      pipelineRun: rhtap-releng-tenant/managed-p76wn
+      roleBinding: cert-manager-oape-tenant/cert-manager-operator-index-4-14-6l4gq-e9a8e0b-tgzwq-roleb66dkg
+      startTime: "2025-04-09T07:01:09Z"
+    startTime: "2025-04-09T07:01:09Z"
+    target: rhtap-releng-tenant
+    validation:
+      time: "2025-04-09T07:01:09Z"
+- apiVersion: appstudio.redhat.com/v1alpha1
+  kind: Release
+  metadata:
+    annotations:
+      pac.test.appstudio.openshift.io/branch: main
+      pac.test.appstudio.openshift.io/cancel-in-progress: "false"
+      pac.test.appstudio.openshift.io/check-run-id: "40228271429"
+      pac.test.appstudio.openshift.io/controller-info: '{"name":"default","configmap":"pipelines-as-code","secret":"pipelines-as-code-secret",
+        "gRepo": "pipelines-as-code"}'
+      pac.test.appstudio.openshift.io/event-type: incoming
+      pac.test.appstudio.openshift.io/git-auth-secret: pac-gitauth-xgkqcn
+      pac.test.appstudio.openshift.io/git-provider: github
+      pac.test.appstudio.openshift.io/installation-id: "35333059"
+      pac.test.appstudio.openshift.io/log-url: https://console.redhat.com/application-pipeline/ns/cert-manager-oape-tenant/pipelinerun/cert-manager-operator-index-4-16-on-push-r7j6l
+      pac.test.appstudio.openshift.io/max-keep-runs: "3"
+      pac.test.appstudio.openshift.io/on-cel-expression: event == "push" && target_branch
+        == "main" && ( "./catalogs/v4.16/***".pathChanged() || ".tekton/cert-manager-operator-index-4-16-push.yaml".pathChanged()
+        )
+      pac.test.appstudio.openshift.io/original-prname: cert-manager-operator-index-4-16-on-push
+      pac.test.appstudio.openshift.io/repo-url: https://github.com/openshift/cert-manager-operator-release
+      pac.test.appstudio.openshift.io/repository: cert-manager-operator-1-15
+      pac.test.appstudio.openshift.io/sender: incoming
+      pac.test.appstudio.openshift.io/sha: e9a8e0b3af53216e65bddcb35dbad7ee8fe4f23a
+      pac.test.appstudio.openshift.io/sha-title: 'Merge pull request #353 from swghosh/main'
+      pac.test.appstudio.openshift.io/sha-url: https://github.com/openshift/cert-manager-operator-release/commit/e9a8e0b3af53216e65bddcb35dbad7ee8fe4f23a
+      pac.test.appstudio.openshift.io/source-branch: main
+      pac.test.appstudio.openshift.io/source-repo-url: ""
+      pac.test.appstudio.openshift.io/state: completed
+      pac.test.appstudio.openshift.io/url-org: openshift
+      pac.test.appstudio.openshift.io/url-repository: cert-manager-operator-release
+    creationTimestamp: "2025-04-09T07:03:20Z"
+    finalizers:
+    - appstudio.redhat.com/release-finalizer
+    generateName: cert-manager-operator-index-4-16-w24xn-e9a8e0b-
+    generation: 1
+    labels:
+      appstudio.openshift.io/application: cert-manager-operator-index-4-16
+      appstudio.openshift.io/build-pipelinerun: cert-manager-operator-index-4-16-on-push-r7j6l
+      appstudio.openshift.io/component: cert-manager-operator-index-4-16
+      pac.test.appstudio.openshift.io/check-run-id: "40228271429"
+      pac.test.appstudio.openshift.io/event-type: incoming
+      pac.test.appstudio.openshift.io/original-prname: cert-manager-operator-index-4-16-on-push
+      pac.test.appstudio.openshift.io/repository: cert-manager-operator-1-15
+      pac.test.appstudio.openshift.io/sha: e9a8e0b3af53216e65bddcb35dbad7ee8fe4f23a
+      pac.test.appstudio.openshift.io/state: completed
+      pac.test.appstudio.openshift.io/url-org: openshift
+      pac.test.appstudio.openshift.io/url-repository: cert-manager-operator-release
+      release.appstudio.openshift.io/automated: "true"
+    name: cert-manager-operator-index-4-16-w24xn-e9a8e0b-9d2t9
+    namespace: cert-manager-oape-tenant
+    ownerReferences:
+    - apiVersion: appstudio.redhat.com/v1alpha1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Application
+      name: cert-manager-operator-index-4-16
+      uid: e6ab0e62-2a5a-41a0-9a78-942c98c88091
+    resourceVersion: "3583235074"
+    uid: edd82a2f-20fb-4bef-99c6-b574b9611c97
+  spec:
+    gracePeriodDays: 7
+    releasePlan: cert-manager-operator-index-staging-4-16
+    snapshot: cert-manager-operator-index-4-16-w24xn
+  status:
+    artifacts:
+      index_image:
+        index_image: registry-proxy.engineering.redhat.com/rh-osbs/iib:952424
+        index_image_resolved: registry-proxy.engineering.redhat.com/rh-osbs/iib@sha256:a39cc1c87eaca405eaccbe6ab2de2f312dfc9f6bbe5c5e567611f712401b9d59
+        target_index: ""
+    attribution:
+      author: system_serviceaccount_remote-argocd_remote-argocd
+      standingAuthorization: true
+    automated: true
+    completionTime: "2025-04-09T07:23:23Z"
+    conditions:
+    - lastTransitionTime: "2025-04-09T07:23:23Z"
+      message: ""
+      reason: Succeeded
+      status: "True"
+      type: Released
+    - lastTransitionTime: "2025-04-09T07:03:20Z"
+      message: ""
+      reason: Succeeded
+      status: "True"
+      type: Validated
+    - lastTransitionTime: "2025-04-09T07:03:20Z"
+      message: ""
+      reason: Skipped
+      status: "True"
+      type: TenantCollectorsPipelineProcessed
+    - lastTransitionTime: "2025-04-09T07:03:20Z"
+      message: ""
+      reason: Skipped
+      status: "True"
+      type: ManagedCollectorsPipelineProcessed
+    - lastTransitionTime: "2025-04-09T07:03:20Z"
+      message: ""
+      reason: Skipped
+      status: "True"
+      type: TenantPipelineProcessed
+    - lastTransitionTime: "2025-04-09T07:23:23Z"
+      message: ""
+      reason: Succeeded
+      status: "True"
+      type: ManagedPipelineProcessed
+    - lastTransitionTime: "2025-04-09T07:23:23Z"
+      message: ""
+      reason: Skipped
+      status: "True"
+      type: FinalPipelineProcessed
+    expirationTime: "2025-04-16T07:03:20Z"
+    managedProcessing:
+      completionTime: "2025-04-09T07:23:23Z"
+      pipelineRun: rhtap-releng-tenant/managed-bzj99
+      roleBinding: cert-manager-oape-tenant/cert-manager-operator-index-4-16-w24xn-e9a8e0b-9d2t9-rolebmt75l
+      startTime: "2025-04-09T07:03:20Z"
+    startTime: "2025-04-09T07:03:20Z"
+    target: rhtap-releng-tenant
+    validation:
+      time: "2025-04-09T07:03:20Z"
+- apiVersion: appstudio.redhat.com/v1alpha1
+  kind: Release
+  metadata:
+    annotations:
+      pac.test.appstudio.openshift.io/branch: main
+      pac.test.appstudio.openshift.io/cancel-in-progress: "false"
+      pac.test.appstudio.openshift.io/check-run-id: "40228316051"
+      pac.test.appstudio.openshift.io/controller-info: '{"name":"default","configmap":"pipelines-as-code","secret":"pipelines-as-code-secret",
+        "gRepo": "pipelines-as-code"}'
+      pac.test.appstudio.openshift.io/event-type: incoming
+      pac.test.appstudio.openshift.io/git-auth-secret: pac-gitauth-oqvivo
+      pac.test.appstudio.openshift.io/git-provider: github
+      pac.test.appstudio.openshift.io/installation-id: "35333059"
+      pac.test.appstudio.openshift.io/log-url: https://console.redhat.com/application-pipeline/ns/cert-manager-oape-tenant/pipelinerun/cert-manager-operator-index-4-17-on-push-plt6d
+      pac.test.appstudio.openshift.io/max-keep-runs: "3"
+      pac.test.appstudio.openshift.io/on-cel-expression: event == "push" && target_branch
+        == "main" && ( "./catalogs/v4.17/***".pathChanged() || ".tekton/cert-manager-operator-index-4-17-push.yaml".pathChanged()
+        )
+      pac.test.appstudio.openshift.io/original-prname: cert-manager-operator-index-4-17-on-push
+      pac.test.appstudio.openshift.io/repo-url: https://github.com/openshift/cert-manager-operator-release
+      pac.test.appstudio.openshift.io/repository: cert-manager-operator-1-15
+      pac.test.appstudio.openshift.io/sender: incoming
+      pac.test.appstudio.openshift.io/sha: e9a8e0b3af53216e65bddcb35dbad7ee8fe4f23a
+      pac.test.appstudio.openshift.io/sha-title: 'Merge pull request #353 from swghosh/main'
+      pac.test.appstudio.openshift.io/sha-url: https://github.com/openshift/cert-manager-operator-release/commit/e9a8e0b3af53216e65bddcb35dbad7ee8fe4f23a
+      pac.test.appstudio.openshift.io/source-branch: main
+      pac.test.appstudio.openshift.io/source-repo-url: ""
+      pac.test.appstudio.openshift.io/state: completed
+      pac.test.appstudio.openshift.io/url-org: openshift
+      pac.test.appstudio.openshift.io/url-repository: cert-manager-operator-release
+    creationTimestamp: "2025-04-09T07:04:27Z"
+    finalizers:
+    - appstudio.redhat.com/release-finalizer
+    generateName: cert-manager-operator-index-4-17-djtff-e9a8e0b-
+    generation: 1
+    labels:
+      appstudio.openshift.io/application: cert-manager-operator-index-4-17
+      appstudio.openshift.io/build-pipelinerun: cert-manager-operator-index-4-17-on-push-plt6d
+      appstudio.openshift.io/component: cert-manager-operator-index-4-17
+      pac.test.appstudio.openshift.io/check-run-id: "40228316051"
+      pac.test.appstudio.openshift.io/event-type: incoming
+      pac.test.appstudio.openshift.io/original-prname: cert-manager-operator-index-4-17-on-push
+      pac.test.appstudio.openshift.io/repository: cert-manager-operator-1-15
+      pac.test.appstudio.openshift.io/sha: e9a8e0b3af53216e65bddcb35dbad7ee8fe4f23a
+      pac.test.appstudio.openshift.io/state: completed
+      pac.test.appstudio.openshift.io/url-org: openshift
+      pac.test.appstudio.openshift.io/url-repository: cert-manager-operator-release
+      release.appstudio.openshift.io/automated: "true"
+    name: cert-manager-operator-index-4-17-djtff-e9a8e0b-sccpb
+    namespace: cert-manager-oape-tenant
+    ownerReferences:
+    - apiVersion: appstudio.redhat.com/v1alpha1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Application
+      name: cert-manager-operator-index-4-17
+      uid: 2b05c415-c5d3-4211-a962-bc79f34040e9
+    resourceVersion: "3583197983"
+    uid: dc25aed0-9929-48eb-b215-27002a7a11e3
+  spec:
+    gracePeriodDays: 7
+    releasePlan: cert-manager-operator-index-staging-4-17
+    snapshot: cert-manager-operator-index-4-17-djtff
+  status:
+    artifacts:
+      index_image:
+        index_image: registry-proxy.engineering.redhat.com/rh-osbs/iib:952425
+        index_image_resolved: registry-proxy.engineering.redhat.com/rh-osbs/iib@sha256:4dea999ac08105b06bfbc5a9e1515590ae1622917f6a6fb8b4966600c8af34cd
+        target_index: ""
+    attribution:
+      author: system_serviceaccount_remote-argocd_remote-argocd
+      standingAuthorization: true
+    automated: true
+    completionTime: "2025-04-09T07:15:22Z"
+    conditions:
+    - lastTransitionTime: "2025-04-09T07:15:22Z"
+      message: ""
+      reason: Succeeded
+      status: "True"
+      type: Released
+    - lastTransitionTime: "2025-04-09T07:04:27Z"
+      message: ""
+      reason: Succeeded
+      status: "True"
+      type: Validated
+    - lastTransitionTime: "2025-04-09T07:04:28Z"
+      message: ""
+      reason: Skipped
+      status: "True"
+      type: TenantCollectorsPipelineProcessed
+    - lastTransitionTime: "2025-04-09T07:04:28Z"
+      message: ""
+      reason: Skipped
+      status: "True"
+      type: ManagedCollectorsPipelineProcessed
+    - lastTransitionTime: "2025-04-09T07:04:28Z"
+      message: ""
+      reason: Skipped
+      status: "True"
+      type: TenantPipelineProcessed
+    - lastTransitionTime: "2025-04-09T07:15:22Z"
+      message: ""
+      reason: Succeeded
+      status: "True"
+      type: ManagedPipelineProcessed
+    - lastTransitionTime: "2025-04-09T07:15:22Z"
+      message: ""
+      reason: Skipped
+      status: "True"
+      type: FinalPipelineProcessed
+    expirationTime: "2025-04-16T07:04:27Z"
+    managedProcessing:
+      completionTime: "2025-04-09T07:15:22Z"
+      pipelineRun: rhtap-releng-tenant/managed-4vwhx
+      roleBinding: cert-manager-oape-tenant/cert-manager-operator-index-4-17-djtff-e9a8e0b-sccpb-rolebsh5gp
+      startTime: "2025-04-09T07:04:28Z"
+    startTime: "2025-04-09T07:04:27Z"
+    target: rhtap-releng-tenant
+    validation:
+      time: "2025-04-09T07:04:27Z"
+- apiVersion: appstudio.redhat.com/v1alpha1
+  kind: Release
+  metadata:
+    annotations:
+      pac.test.appstudio.openshift.io/branch: main
+      pac.test.appstudio.openshift.io/cancel-in-progress: "false"
+      pac.test.appstudio.openshift.io/check-run-id: "40228954869"
+      pac.test.appstudio.openshift.io/controller-info: '{"name":"default","configmap":"pipelines-as-code","secret":"pipelines-as-code-secret",
+        "gRepo": "pipelines-as-code"}'
+      pac.test.appstudio.openshift.io/event-type: incoming
+      pac.test.appstudio.openshift.io/git-auth-secret: pac-gitauth-cnorbs
+      pac.test.appstudio.openshift.io/git-provider: github
+      pac.test.appstudio.openshift.io/installation-id: "35333059"
+      pac.test.appstudio.openshift.io/log-url: https://console.redhat.com/application-pipeline/ns/cert-manager-oape-tenant/pipelinerun/cert-manager-operator-index-4-15-on-push-fzswk
+      pac.test.appstudio.openshift.io/max-keep-runs: "3"
+      pac.test.appstudio.openshift.io/on-cel-expression: event == "push" && target_branch
+        == "main" && ( "./catalogs/v4.15/***".pathChanged() || ".tekton/cert-manager-operator-index-4-15-push.yaml".pathChanged()
+        )
+      pac.test.appstudio.openshift.io/original-prname: cert-manager-operator-index-4-15-on-push
+      pac.test.appstudio.openshift.io/repo-url: https://github.com/openshift/cert-manager-operator-release
+      pac.test.appstudio.openshift.io/repository: cert-manager-operator-1-15
+      pac.test.appstudio.openshift.io/sender: incoming
+      pac.test.appstudio.openshift.io/sha: e9a8e0b3af53216e65bddcb35dbad7ee8fe4f23a
+      pac.test.appstudio.openshift.io/sha-title: 'Merge pull request #353 from swghosh/main'
+      pac.test.appstudio.openshift.io/sha-url: https://github.com/openshift/cert-manager-operator-release/commit/e9a8e0b3af53216e65bddcb35dbad7ee8fe4f23a
+      pac.test.appstudio.openshift.io/source-branch: main
+      pac.test.appstudio.openshift.io/source-repo-url: ""
+      pac.test.appstudio.openshift.io/state: completed
+      pac.test.appstudio.openshift.io/url-org: openshift
+      pac.test.appstudio.openshift.io/url-repository: cert-manager-operator-release
+    creationTimestamp: "2025-04-09T07:18:27Z"
+    finalizers:
+    - appstudio.redhat.com/release-finalizer
+    generateName: cert-manager-operator-index-4-15-8cs5d-e9a8e0b-
+    generation: 1
+    labels:
+      appstudio.openshift.io/application: cert-manager-operator-index-4-15
+      appstudio.openshift.io/build-pipelinerun: cert-manager-operator-index-4-15-on-push-fzswk
+      appstudio.openshift.io/component: cert-manager-operator-index-4-15
+      pac.test.appstudio.openshift.io/check-run-id: "40228954869"
+      pac.test.appstudio.openshift.io/event-type: incoming
+      pac.test.appstudio.openshift.io/original-prname: cert-manager-operator-index-4-15-on-push
+      pac.test.appstudio.openshift.io/repository: cert-manager-operator-1-15
+      pac.test.appstudio.openshift.io/sha: e9a8e0b3af53216e65bddcb35dbad7ee8fe4f23a
+      pac.test.appstudio.openshift.io/state: completed
+      pac.test.appstudio.openshift.io/url-org: openshift
+      pac.test.appstudio.openshift.io/url-repository: cert-manager-operator-release
+      release.appstudio.openshift.io/automated: "true"
+    name: cert-manager-operator-index-4-15-8cs5d-e9a8e0b-zmfz7
+    namespace: cert-manager-oape-tenant
+    ownerReferences:
+    - apiVersion: appstudio.redhat.com/v1alpha1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Application
+      name: cert-manager-operator-index-4-15
+      uid: 5022cf17-286e-4c72-9825-0a2db1bd54aa
+    resourceVersion: "3583305513"
+    uid: 8386e9ef-8873-4035-82c4-3e7d4205293a
+  spec:
+    gracePeriodDays: 7
+    releasePlan: cert-manager-operator-index-staging-4-15
+    snapshot: cert-manager-operator-index-4-15-8cs5d
+  status:
+    artifacts:
+      index_image:
+        index_image: registry-proxy.engineering.redhat.com/rh-osbs/iib:952441
+        index_image_resolved: registry-proxy.engineering.redhat.com/rh-osbs/iib@sha256:7f4feead5d4bd350647b75c534c152f1d01b2e47d0a272185a02fee8e00779be
+        target_index: ""
+    attribution:
+      author: system_serviceaccount_remote-argocd_remote-argocd
+      standingAuthorization: true
+    automated: true
+    completionTime: "2025-04-09T07:38:00Z"
+    conditions:
+    - lastTransitionTime: "2025-04-09T07:38:00Z"
+      message: ""
+      reason: Succeeded
+      status: "True"
+      type: Released
+    - lastTransitionTime: "2025-04-09T07:18:27Z"
+      message: ""
+      reason: Succeeded
+      status: "True"
+      type: Validated
+    - lastTransitionTime: "2025-04-09T07:18:27Z"
+      message: ""
+      reason: Skipped
+      status: "True"
+      type: TenantCollectorsPipelineProcessed
+    - lastTransitionTime: "2025-04-09T07:18:27Z"
+      message: ""
+      reason: Skipped
+      status: "True"
+      type: ManagedCollectorsPipelineProcessed
+    - lastTransitionTime: "2025-04-09T07:18:27Z"
+      message: ""
+      reason: Skipped
+      status: "True"
+      type: TenantPipelineProcessed
+    - lastTransitionTime: "2025-04-09T07:38:00Z"
+      message: ""
+      reason: Succeeded
+      status: "True"
+      type: ManagedPipelineProcessed
+    - lastTransitionTime: "2025-04-09T07:38:00Z"
+      message: ""
+      reason: Skipped
+      status: "True"
+      type: FinalPipelineProcessed
+    expirationTime: "2025-04-16T07:18:27Z"
+    managedProcessing:
+      completionTime: "2025-04-09T07:38:00Z"
+      pipelineRun: rhtap-releng-tenant/managed-tc2jf
+      roleBinding: cert-manager-oape-tenant/cert-manager-operator-index-4-15-8cs5d-e9a8e0b-zmfz7-rolebr95gq
+      startTime: "2025-04-09T07:18:28Z"
+    startTime: "2025-04-09T07:18:27Z"
+    target: rhtap-releng-tenant
+    validation:
+      time: "2025-04-09T07:18:27Z"
+kind: List
+metadata:
+  resourceVersion: ""

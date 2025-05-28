@@ -1,0 +1,9 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  generateName: cert-manager-operator-bundle-1-15-0-prod-
+  namespace: cert-manager-oape-tenant
+spec:
+  gracePeriodDays: 14
+  releasePlan: cert-manager-operator-prod-1-15
+  snapshot: cert-manager-operator-1-15-0-only-bundle-8swp5

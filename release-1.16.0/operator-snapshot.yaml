@@ -1,0 +1,15 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Snapshot
+metadata:
+  generateName: cert-manager-operator-1-16-
+  namespace: cert-manager-oape-tenant
+spec:
+  application: cert-manager-operator-1-16
+  artifacts: {}
+  components:
+  - containerImage: quay.io/redhat-user-workloads/cert-manager-oape-tenant/cert-manager-operator-1-16/cert-manager-operator-1-16@sha256:41146965b3344b008ff0f6d119c1cb071efa7f02c742ce9af303b896ae43bff7
+    name: cert-manager-operator-1-16
+    source:
+      git:
+        revision: 16a71e76b3f7ae8e21eac349ff1ed0601b19cb18
+        url: https://github.com/openshift/cert-manager-operator-release

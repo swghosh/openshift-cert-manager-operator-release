@@ -1,0 +1,11 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Snapshot
+metadata:
+  name: jetstack-cert-manager-prod-acmesolver-1-15-5
+  namespace: cert-manager-oape-tenant
+spec:
+  application: jetstack-cert-manager-1-15
+  artifacts: {}
+  components:
+  - containerImage: registry.redhat.io/cert-manager/jetstack-cert-manager-acmesolver-rhel9@sha256:20efff60a0caf5eafb38986fd21611697b5bc534c2e789da233983a9739938ed
+    name: jetstack-cert-manager-acmesolver-1-15

@@ -1,0 +1,6 @@
+cert-manager-operator-index-4-14-mq7pp-d52f73b-d7sxx   cert-manager-operator-index-4-14-mq7pp   cert-manager-operator-index-staging-4-14   Failed           84m
+cert-manager-operator-index-4-15-wcwc5-d52f73b-dkd55   cert-manager-operator-index-4-15-wcwc5   cert-manager-operator-index-staging-4-15   Succeeded        35m
+cert-manager-operator-index-4-18-pq954-d52f73b-rm8fg   cert-manager-operator-index-4-18-pq954   cert-manager-operator-index-staging-4-18   Succeeded        34m
+cert-manager-operator-index-4-19-6dvwx-d52f73b-gkglc   cert-manager-operator-index-4-19-6dvwx   cert-manager-operator-index-staging-4-19   Succeeded        33m
+cert-manager-operator-index-4-17-89szb-d52f73b-hndpc   cert-manager-operator-index-4-17-89szb   cert-manager-operator-index-staging-4-17   Succeeded        31m
+cert-manager-operator-index-4-16-kwcl6-d52f73b-twrc5   cert-manager-operator-index-4-16-kwcl6   cert-manager-operator-index-staging-4-16   Succeeded        27m

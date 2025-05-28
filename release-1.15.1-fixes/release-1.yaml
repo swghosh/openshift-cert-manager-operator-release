@@ -1,0 +1,9 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  name: jetstack-cert-manager-acmesolver-1-15-5-prod-rerelease
+  namespace: cert-manager-oape-tenant
+spec:
+  gracePeriodDays: 14
+  releasePlan: jetstack-cert-manager-prod-1-15
+  snapshot: jetstack-cert-manager-prod-acmesolver-1-15-5
